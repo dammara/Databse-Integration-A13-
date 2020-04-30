@@ -6,7 +6,7 @@ import sqlite3, time
 from sqlite3 import Error
 
 
-def exit_prog():
+def exit_prog():                                        # Exit Screen
     print("\033[1mGoodbye! \033[0m")
     time.sleep(1)
     exit()
@@ -17,7 +17,7 @@ def invalid():                                          # Screen for Invalid inp
     time.sleep(1.5)
 
 
-def welcome():              # Splash Screen
+def welcome():                                          # Splash Screen
     print("""\033[1m
     ---------SQLite Database Prog Version 1.0--------- \033[0m
     Welcome. This program will use SQL to create
@@ -25,7 +25,7 @@ def welcome():              # Splash Screen
     time.sleep(2)
 
 
-def choose():                   # Main Menu where the user selects customer or books
+def choose():                                           # Main Menu where the user selects customer or books
     print(f"""\n
                 MAIN MENU 
 \033[1m ----ENTER the NUMBER (1, 2, 3)---- \033[0m
@@ -34,16 +34,16 @@ def choose():                   # Main Menu where the user selects customer or b
     3. Exit Program
     """)
 
-    method = int(input(">>>"))          # Method is inputted here
+    method = int(input(">>>"))                          # Method is inputted here
 
-    while method > 3 or method < 1:        # Invalid Choice
+    while method > 3 or method < 1:                     # Invalid Choice
         invalid()
         choose()
-    if method == 1:                         # Creates customer table and prints customer menu
+    if method == 1:                                     # Creates customer table and prints customer menu
         print("Accessing Customer Menu...")
         time.sleep(1)
         customers()
-    elif method == 2:                       # Creates books table and prints books menu
+    elif method == 2:                                   # Creates books table and prints books menu
         print("Accessing Book Menu...")
         time.sleep(1)
         books()
@@ -107,7 +107,7 @@ CREATE TABLE IF NOT EXISTS book (
 """
 
 
-def customers():                             # Customer Menu Here
+def customers():                                            # Customer Menu Here
     print(f"""\n
                 CUSTOMER MENU 
 \033[1m ----ENTER the NUMBER (1, 2, 3...)---- \033[0m
@@ -118,12 +118,12 @@ def customers():                             # Customer Menu Here
     5. Return to Main Menu
     """)
 
-    c_method = int(input(">>>"))          # Method is inputted here
+    c_method = int(input(">>>"))                            # Method is inputted here
 
-    while c_method > 5 or c_method < 1:   # Invalid Response Check
+    while c_method > 5 or c_method < 1:                     # Invalid Response Check
         invalid()
         customers()
-    if c_method == 1:               # Add New Customer
+    if c_method == 1:                                       # Add New Customer
         print("\n\033[1mADD NEW CUSTOMER\033[0m")
         cust_id = input("Enter the customer ID >>>")
         first_name = input("Enter First Name >>>")
@@ -177,7 +177,7 @@ def customers():                             # Customer Menu Here
         print("\033[1mReturning to CUSTOMER MENU...\033[0m")
         time.sleep(1.5)
         customers()
-    elif c_method == 3:                                             # Shows list of all customers
+    elif c_method == 3:                                      # Shows list of all customers
         select_customer = "SELECT * from customer"
         people = execute_read_query(connection, select_customer)
         for person in people:
@@ -186,7 +186,7 @@ def customers():                             # Customer Menu Here
         print("\033[1mReturning to CUSTOMER MENU...\033[0m")
         time.sleep(1.5)
         customers()
-    elif c_method == 4:                                                     # Deletes a customer
+    elif c_method == 4:                                  # Deletes a customer
         select_customer = "SELECT * from customer"
         people = execute_read_query(connection, select_customer)
         for person in people:
@@ -198,7 +198,7 @@ def customers():                             # Customer Menu Here
             cursor = connection.cursor()
             cursor.execute("DELETE FROM customer WHERE cust_id=?", (searching,))
             connection.commit()
-            print("\033[1mCUSTOMER DELETED SUCCESSFULLY...\033[0m")
+            print("\033[1mCUSTOMER DELETED SUCCESSFULLY!\033[0m")
             time.sleep(1)
             print("\033[1mReturning to CUSTOMER MENU...\033[0m")
             time.sleep(1.5)
@@ -213,7 +213,7 @@ def customers():                             # Customer Menu Here
         choose()
 
 
-def books():                   # Book Menu Here
+def books():                                                        # Book Menu Here
     print(f"""\n
                 BOOK MENU 
 \033[1m ----ENTER the NUMBER (1, 2, 3...)---- \033[0m
@@ -224,12 +224,12 @@ def books():                   # Book Menu Here
     5. Return to Main Menu
     """)
 
-    b_method = int(input(">>>"))          # Method is inputted here
+    b_method = int(input(">>>"))                                # Method is inputted here
 
-    while b_method > 5 or b_method < 1:   # Invalid Check
+    while b_method > 5 or b_method < 1:                         # Invalid Check
         invalid()
         books()
-    if b_method == 1:                        # Add New Book
+    if b_method == 1:                                           # Add New Book
         print("\n\033[1mADD NEW BOOK\033[0m")
         book_id = input("Enter the book ID >>>")
         title = input("Enter the book title >>>")
@@ -248,9 +248,9 @@ def books():                   # Book Menu Here
         print("\033[1mReturning to BOOK MENU...\033[0m")
         time.sleep(1.5)
         books()
-    elif b_method == 2:                                 # MODIFY EXISTING BOOKS
+    elif b_method == 2:                                     # MODIFY EXISTING BOOKS
         print("\n\033[1mMODIFY EXISTING BOOK\033[0m")
-        select_book = "SELECT * from book"               # PRINTS LIST OF BOOKS
+        select_book = "SELECT * from book"                   # PRINTS LIST OF BOOKS
         thebooks = execute_read_query(connection, select_book)
         for book in thebooks:
             print(book)
@@ -278,13 +278,13 @@ def books():                   # Book Menu Here
 
         )
         connection.commit()
-        print("\033[1mBOOK UPDATED SUCCESSFULLY\033[0m")
+        print("\033[1mBOOK UPDATED SUCCESSFULLY!\033[0m")
         time.sleep(1)
         print("\033[1mReturning to BOOK MENU...\033[0m")
         time.sleep(1.5)
         books()
     elif b_method == 3:
-        select_book = "SELECT * from book"               # PRINTS LIST OF BOOKS
+        select_book = "SELECT * from book"                      # PRINTS LIST OF BOOKS
         thebooks = execute_read_query(connection, select_book)
         for book in thebooks:
             print(book)
@@ -292,8 +292,8 @@ def books():                   # Book Menu Here
         print("\033[1mReturning to BOOK MENU...\033[0m")
         time.sleep(1.5)
         books()
-    elif b_method == 4:                                  # Deletes from book
-        select_book = "SELECT * from book"               # PRINTS LIST OF BOOKS
+    elif b_method == 4:                                          # Deletes from book
+        select_book = "SELECT * from book"                          # PRINTS LIST OF BOOKS
         thebooks = execute_read_query(connection, select_book)
         for book in thebooks:
             print(book)
@@ -304,7 +304,7 @@ def books():                   # Book Menu Here
             cursor = connection.cursor()
             cursor.execute("DELETE FROM book WHERE book_id=?", (bsearching,))
             connection.commit()
-            print("\033[1mBOOK DELETED SUCCESSFULLY...\033[0m")
+            print("\033[1mBOOK DELETED SUCCESSFULLY!\033[0m")
             time.sleep(1)
             print("\033[1mReturning to BOOK MENU...\033[0m")
             time.sleep(1.5)
@@ -319,6 +319,7 @@ def books():                   # Book Menu Here
         choose()
 
 
+                                                                    # START
 print("Creating Prerequisites...")
 time.sleep(1)
 print("Connect to SQLite database:")
